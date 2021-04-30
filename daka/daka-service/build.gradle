@@ -1,0 +1,76 @@
+def deps = rootProject.ext.deps
+
+buildscript {
+  dependencies {
+    classpath(deps.springBootPlugin)
+  }
+}
+
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+dependencies {
+
+  pmd deps.p3c
+  //
+  compile(project(path: ':toolkit-core'))
+  compile(project(path: ':daka:toolkit-extra'))
+  compile project(':daka:daka-service-domain')
+  //
+  compileOnly deps.springBootDevtools
+  annotationProcessor deps.springBootConfigurationProcessor
+  compile deps.springBootStarterActuator
+  //
+  compileOnly deps.lombok
+  annotationProcessor deps.lombok
+  //
+  compile deps.springBootStarterWeb
+  //  compile deps.springBootStarterValidation
+  compile deps.springBootStarterMobile
+  compile deps.springBootStarterUndertow
+  // 日志
+  compile deps.springBootStarterLog4j2
+  compile deps.log4j2Web
+  //
+  compile deps.springBootStarterJdbc
+  compile deps.mysql
+  compile deps.druid
+  compile deps.mybatis
+  compile deps.mybatisSpring
+  compile deps.mybatisMapper
+  compile deps.pagehelper
+  // 缓存
+  compile deps.springBootStarterCache
+  compile deps.springBootStarterRedis
+  //  compile deps.springBootStarterRedisson
+  // 访问日志记录...
+  compile deps.springBootStarterAop
+  // 队列处理：登录日志，发短信，发邮件，订单超时关闭。。。
+  //  compile deps.springBootStarterAmqp
+  //
+  compile deps.alipaySdk
+
+  // API Docs by Swagger
+  compile deps.knife4j
+  //
+  testCompileOnly deps.lombok
+  testAnnotationProcessor deps.lombok
+  testCompile deps.springBootStarterTest
+}
+
+
+// 全局设置依赖配置
+configurations {
+  // 使用 undertow
+  all*.exclude module: 'spring-boot-starter-tomcat'
+}
+
+bootJar {
+  archiveBaseName = 'shibei-daka-service' + ".${env}"
+  version = rootProject.version
+  //  excludeDevtools = false
+  //  launchScript()
+  //  manifest {
+  //    attributes 'application.version': rootProject.version
+  //  }
+}

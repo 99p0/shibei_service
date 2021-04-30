@@ -1,0 +1,62 @@
+def deps = rootProject.ext.deps
+
+buildscript {
+  dependencies {
+    classpath(deps.springBootPlugin)
+  }
+}
+
+//apply plugin: "war"
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+dependencies {
+
+  pmd deps.p3c
+  //
+  compile project(':toolkit-core')
+  compile project(':daka:toolkit-extra')
+  compile project(':daka:daka-service-domain')
+  //
+  compileOnly deps.lombok
+  annotationProcessor deps.lombok
+  //
+  compile deps.springBootStarterWeb
+  compile deps.springBootStarterUndertow
+  // 日志
+  compile deps.springBootStarterLog4j2
+  compile deps.log4j2Web
+  //
+  compile deps.springBootStarterJdbc
+  compile deps.mysql
+  compile deps.druid
+  compile deps.mybatis
+  compile deps.mybatisSpring
+  compile deps.mybatisMapper
+  compile deps.pagehelper
+  //
+  compile deps.springBootStarterRedis
+  //
+  testCompileOnly deps.lombok
+  testAnnotationProcessor deps.lombok
+  //
+  testCompile deps.junitPlatform
+  testCompile deps.junitJupiter
+  testCompile deps.springBootStarterTest
+}
+
+// 全局设置依赖配置
+configurations {
+  // 使用 undertow
+  all*.exclude module: 'spring-boot-starter-tomcat'
+}
+
+bootJar {
+  archiveBaseName = 'shibei-schedulerx-service' + ".${env}"
+  version = rootProject.version
+  //  excludeDevtools = false
+  //  launchScript()
+  //  manifest {
+  //    attributes 'application.version': rootProject.version
+  //  }
+}

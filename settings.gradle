@@ -1,0 +1,8 @@
+rootProject.name = 'shibei_service'
+
+include 'toolkit-core'
+//
+include 'daka:toolkit-extra'
+include 'daka:daka-service'
+include 'daka:daka-service-domain'
+include 'daka:schedulerx-service'

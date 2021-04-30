@@ -1,0 +1,81 @@
+#
+birdplanet:
+  app:
+    env: release
+    base-path: /data/shibei/schedulerx/release
+#
+logging:
+  config: classpath:config/log4j2.xml
+  file:
+    path: ${birdplanet.app.base-path}/logs
+#
+server:
+  compression:
+    enabled: true
+  http2:
+    enabled: true
+  port: 8176
+  servlet:
+    context-path: /
+  error:
+    path: /error
+    whitelabel:
+      enabled: false
+    include-stacktrace: always
+  undertow:
+    threads:
+      io: 4
+      worker: 32
+    buffer-size: 1024
+    direct-buffers: true
+#
+spring:
+#
+  main:
+    log-startup-info: true
+    register-shutdown-hook: true
+#
+  application:
+    name: schedulerx-service
+#
+  pid:
+    file: ${birdplanet.app.base-path}/schedulerx.pid
+    fail-on-write-error: true
+#
+  aop:
+    auto: true
+    proxy-target-class: true
+#
+  redis:
+    database: 1
+    host: 127.0.0.1
+    password:
+    port: 6379
+#
+  datasource:
+    punch:
+      name: birdplanet
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: dk001
+      password: 1qaSW@3ed
+      url: jdbc:mysql://127.0.0.1:3306/shibei?useUnicode=true&characterEncoding=utf8&useSSL=false&autoReconnect=true&allowPublicKeyRetrieval=true&useTimezone=true&serverTimezone=GMT%2B8
+#
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+#
+management:
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+    shutdown:
+      enabled: false

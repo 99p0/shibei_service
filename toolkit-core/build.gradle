@@ -1,0 +1,32 @@
+def deps = rootProject.ext.deps
+dependencies {
+
+  pmd deps.p3c
+
+  compileOnly deps.lombok
+  annotationProcessor deps.lombok
+
+  compile deps.slf4j
+
+  compile deps.aspectjweaver
+  compile deps.guava
+  compile deps.dozer
+  compile deps.commonsLang3
+  compile deps.commonsCodec
+  compile deps.commonsIo
+  compile deps.jjwt
+
+  //  compile deps.caffeine
+  compile deps.bcprov
+  //  compile deps.protobuf
+  compile deps.zxing
+
+  //  compile deps.okhttp
+  //  compile deps.okhttpLog
+
+  testCompileOnly deps.lombok
+  testAnnotationProcessor deps.lombok
+
+  testCompile deps.junitPlatform
+  testCompile deps.junitJupiter
+}

@@ -1,0 +1,13 @@
+= spring-asciidoctor-boilerplate
+
+include::attributes.adoc[]
+:java-src: ../../main/java
+
+TIP: free tip
+
+== test user defined attribute
+
+{test-attribute} +
+中文测试
+
+:sectnums!:

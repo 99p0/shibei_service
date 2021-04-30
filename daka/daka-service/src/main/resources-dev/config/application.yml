@@ -1,0 +1,101 @@
+#
+birdplanet:
+  app:
+    env: dev
+    base-path: /Users/dwy/Downloads/shibei/punch/dev
+    path_file_upload: ${birdplanet.app.base-path}/moneyqr/
+#
+logging:
+  config: classpath:config/log4j2.xml
+  file:
+    path: ${birdplanet.app.base-path}/logs
+#
+server:
+  # 开启优雅停机，默认是立即停机IMMEDIATE
+  shutdown: graceful
+  compression:
+    enabled: true
+  http2:
+    enabled: true
+  port: 8170
+  servlet:
+    context-path: /
+  error:
+    path: /error
+    whitelabel:
+      enabled: false
+    include-stacktrace: always
+  undertow:
+    threads:
+      io: 4
+      worker: 32
+    buffer-size: 1024
+    direct-buffers: true
+#
+spring:
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
+  main:
+    log-startup-info: true
+    register-shutdown-hook: true
+  application:
+    name: birdplanet-service
+  pid:
+    # 将 PID 写入 /var/run 路径下的 birdplanet.pid 文件中
+    file: ${birdplanet.app.base-path}/birdplanet.pid
+    fail-on-write-error: true
+  aop:
+    auto: true
+    proxy-target-class: true
+  # 主从模式：哨兵
+  redis:
+    database: 1
+    host: 127.0.0.1
+    password:
+    port: 6379
+  # 主从模式：
+  datasource:
+    punch:
+      name: punch
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: root
+      password: root
+      url: jdbc:mysql://127.0.0.1:3306/shibei?useUnicode=true&characterEncoding=utf8&useSSL=false&autoReconnect=true&allowPublicKeyRetrieval=true&useTimezone=true&serverTimezone=GMT%2B8
+  mvc:
+    log-resolved-exception: true
+    throw-exception-if-no-handler-found: true
+  #
+  web:
+    resources:
+      chain:
+        enabled: true
+      cache:
+        period: 360000s
+    locale: zh_CN
+  #
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  #
+  mandatory-file-encoding: UTF-8
+  #
+  servlet:
+    multipart:
+      max-file-size: 1MB
+      max-request-size: 1MB
+#
+management:
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+    shutdown:
+      enabled: false

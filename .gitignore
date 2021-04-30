@@ -1,0 +1,40 @@
+# ---------------   Gradle
+.gradle/
+build/
+
+# ---------------   IDEA
+.idea/
+*.iml
+out/
+classes/
+
+# ---------------   Eclipse
+*.classpath
+*.project
+*.settings
+bin/
+
+# ---------------   NetBeans
+.nb-gradle
+.nb-gradle-properties
+
+# ---------------   Vim
+*.sw[op]
+
+# ---------------   Emacs
+*~
+
+# ---------------   Sublime Text
+*.sublime-*
+
+# ---------------   jEnv
+.java-version
+
+# ---------------   Mac
+.DS_Store/
+
+# ---------------  python > mkdocs
+site/
+
+# ---------------   vscode
+.vscode/

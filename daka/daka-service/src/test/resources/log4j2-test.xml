@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="warn">
+  <properties>
+    <Property name="PID">-PID-</Property>
+    <Property name="LOG_EXCEPTION_CONVERSION_WORD">%xwEx</Property>
+    <Property name="LOG_LEVEL_PATTERN">%5p</Property>
+    <Property name="LOG_DATEFORMAT_PATTERN">yyyy-MM-dd HH:mm:ss,SSS</Property>
+    <Property name="CONSOLE_LOG_PATTERN">%clr{%d{${LOG_DATEFORMAT_PATTERN}}}{faint} %clr{${LOG_LEVEL_PATTERN}} %clr{${sys:PID}}{magenta} %clr{---}{faint} %clr{[%15.15t]}{faint} %clr{%-40.40c{1.}}{cyan} .%clr{%M(%L)}{faint} %clr{:}{faint} %m%n${sys:LOG_EXCEPTION_CONVERSION_WORD}</Property>
+  </properties>
+  <appenders>
+    <console name="Console" target="SYSTEM_OUT" follow="true">
+      <PatternLayout charset="UTF-8" pattern="${sys:CONSOLE_LOG_PATTERN}"/>
+    </console>
+  </appenders>
+  <loggers>
+    <root level="debug">
+      <appender-ref ref="Console"/>
+    </root>
+  </loggers>
+</configuration>

@@ -1,0 +1,13 @@
+
+gradle :daka:schedulerx-service:clean build bootJar -i -Denv=release --parallel -x test
+
+java -Xmx128m -Xms64m -Xss16m -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:+PrintGCDetails -XX:+PrintClassHistogram -XX:+PrintGCDateStamps -XX:+PrintHeapAtGC -XX:+HeapDumpOnOutOfMemoryError -server -jar
+
+java -Xmx1g -Xms512m -Xss16m -XX:+PrintGCDetails -XX:+HeapDumpOnOutOfMemoryError -XX:+UseConcMarkSweepGC -server -jar
+
+ps aux | grep daka-service.release-1.4.20_694aa55.jar | grep -v grep | awk '{print $11 "\t" $6/1024"MB" }'
+
+
+支付宝公钥RSA2：
+
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAk7wozfROGF9Mbkvc6t+JM8ywLdYXkb0bdklzUbLhPp3p9Rl9bnP9xMcLAuikXDAEyNxJm9IftI5lEEGvT9kqB8eDVsqE4cBXeAZg+ECCb642QSve97p87lzxaOzVn6SGDJVdxhYYue+4kDjm+wSqPxo1sZa2fMuAY2kHSTFA8i2UQysvRKB8F00CL64hOF0+XebX/S1WSddXQarPF/CvbKHxH/AMpc9G8eac6+B1RH6Y83vn4Qyd4UmYDUfV56SPCQR59h+OUWHe3KJRUC8YSrMErbFGbYr361uFlMriykBKrouw4vHmkWlkwAlQlCqrglab5VRKVDXrwKFGoAKpzQIDAQAB

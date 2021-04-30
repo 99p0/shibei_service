@@ -1,0 +1,86 @@
+
+.项目
+[options="header,footer"]
+|===
+| 端口| 管理端口 | 项目名  |描述  |完成度
+| 8070| -- | birdplanet-api-service  | --  |✔
+| 8076| -- | birdplanet-schedulerx-service  | --  |✔
+| 8080| -- | birdplanet-console-api-service  | --  |--
+| 8079| -- | birdplanet-trade-service  | --  |--
+| 8075| -- | birdplanet-auth-service  | --  |--
+|===
+
+**技术框架**
+
+```text
+redis+Caffeine
+rabbitmq
+quartz
+springboot
+mysql + druid + mybatis
+Undertow
+Security
+Mail
+lombok
+
+prometheus >> linux,mysql,applications,redis
+grafana >> 
+```
+
+**prometheus**
+```text
+
+点击两次闯关 》 触发两次
+```
+
+**mysql 时区设置**
+```text
+show variables like '%time_zone%';
+
+set global time_zone = '+8:00';  ##修改mysql全局时区为北京时间，即我们所在的东8区
+set time_zone = '+8:00';  ##修改当前会话时区
+flush privileges;  #立即生效
+
+```
+
+
+**网关之流量网关**
+```text
+
+```
+**网关之业务网关**
+```text
+
+```
+
+**日志平台设计**
+```text
+日志平台的搭建可以使用的是 ELK 组件，使用 Logstash 进行收集日志文件，使用 Elasticsearch 引擎进行搜索分析，最终在 Kibana 平台展示出来。
+```
+
+**幂等性设计**
+```text
+
+```
+
+**限流设计**
+```text
+
+```
+
+**熔断设计**
+```text
+
+```
+
+**降级设计**
+```text
+
+```
+
+
+**加密算法**
+```text
+通过RSA加密AES的密钥，传输到接收方，接收方解密得到AES密钥，然后发送方和接收方用AES密钥来通信。
+```
+

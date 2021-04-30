@@ -1,0 +1,223 @@
+/*
+ *  Birdplanet.com Inc.
+ *  Copyright (c) 2019-2019 All Rights Reserved.
+ */
+//
+buildscript {
+  //
+  repositories {
+    // central仓和jcenter仓的聚合仓
+    def REPOSITORY_URL = 'https://maven.aliyun.com/repository/public'
+    def gradle_plugin_REPOSITORY_URL = 'https://maven.aliyun.com/repository/gradle-plugin'
+    mavenLocal()
+    maven {
+      url REPOSITORY_URL
+    }
+    maven {
+      url gradle_plugin_REPOSITORY_URL
+    }
+  }
+  //
+  repositories.each {
+    println "repositories url :: ${it.getUrl()}"
+  }
+  // do others...
+}
+//
+plugins {
+  id 'org.asciidoctor.jvm.convert' version '3.3.0'
+  id 'org.asciidoctor.jvm.pdf' version '3.3.0'
+  id 'org.asciidoctor.jvm.epub' version '3.3.0'
+}
+// 依赖通用版本
+apply from: 'config.gradle'
+
+//
+allprojects {
+
+  buildscript {
+    repositories {
+      // central仓和jcenter仓的聚合仓
+      def REPOSITORY_URL = 'https://maven.aliyun.com/repository/public'
+      def gradle_plugin_REPOSITORY_URL = 'https://maven.aliyun.com/repository/gradle-plugin'
+      mavenLocal()
+      maven {
+        url REPOSITORY_URL
+      }
+      maven {
+        url gradle_plugin_REPOSITORY_URL
+      }
+      maven {
+        url "https://repo.spring.io/milestone"
+      }
+    }
+  }
+
+  group = "cn.birdplanet.software"
+  version = rootProject.getDateVersion()
+
+  repositories {
+    // central仓和jcenter仓的聚合仓
+    def REPOSITORY_URL = 'https://maven.aliyun.com/repository/public'
+    mavenLocal()
+    maven {
+      url REPOSITORY_URL
+    }
+    maven {
+      url "https://repo.spring.io/milestone"
+    }
+  }
+
+  task downloadDependencies() {
+    description '下载的所有依赖到Gradle缓存...'
+    doLast {
+      configurations.findAll { it.canBeResolved }.files
+    }
+  }
+
+
+
+  // ...
+}
+
+
+
+//
+subprojects { project ->
+
+  apply plugin: 'java'
+  apply plugin: 'pmd'
+
+  //  java编译的时候缺省状态下会因为中文字符而失败
+  [compileJava, compileTestJava, javadoc]*.options*.encoding = "UTF-8"
+  //
+  afterEvaluate {
+    // 使用阿里巴巴的p3c >  需要加在p3c的依赖jar
+    pmd {
+      ignoreFailures = true
+      consoleOutput = true
+      reportsDir = file("${project.projectDir}/build/reports/pmd")
+      ruleSets = [
+              "java-ali-comment",
+              "java-ali-concurrent",
+              "java-ali-constant",
+              "java-ali-exception",
+              "java-ali-flowcontrol",
+              "java-ali-naming",
+              "java-ali-oop",
+              "java-ali-orm",
+              "java-ali-other",
+              "java-ali-set",
+      ]
+    }
+    // do others...
+  }
+
+  configurations {
+    asciidoctorExtensions
+    //    actuatorApiDocumentation
+    //    autoConfiguration
+    //    configurationProperties
+    //    gradlePluginDocumentation
+    //    mavenPluginDocumentation
+    //    testSlices
+  }
+
+  dependencies {
+    asciidoctorExtensions "io.spring.asciidoctor.backends:spring-asciidoctor-backends:${rootProject.ext.springAsciidoctorVersion}"
+
+    //    asciidoctorExtensions("org.springframework.restdocs:spring-restdocs-asciidoctor")
+  }
+
+  tasks.withType(JavaCompile).configureEach {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+  }
+
+  test {
+    useJUnitPlatform()
+  }
+
+  asciidoctor {
+    logDocuments true
+
+    baseDirFollowsSourceDir()
+
+    sources {
+      include 'index.adoc'
+    }
+    outputDir file("$buildDir/asciidoc")
+    configurations "asciidoctorExtensions"
+    outputOptions {
+      backends "spring-html"
+    }
+  }
+
+  // others ...
+}
+
+// 配置通用服务
+configure(subprojects.findAll { it.name.endsWith('-service') }) {
+
+  ext {
+    env = System.getProperty("env") ?: "dev"
+  }
+
+  sourceSets {
+    main {
+      resources {
+        srcDirs = ["src/main/resources", "src/main/resources-${env}"]
+      }
+    }
+  }
+
+  // 全局设置依赖配置
+  configurations {
+    // providedRuntime
+
+    // 所有需要忽略的包定义在此
+
+    // 构建过程中排除模块 >> all*.exclude group: 'xxx', module: 'xxx'
+    // 编译期排除模块 >> compile.exclude group: 'xxx', module: 'xxx'
+    all*.exclude module: 'spring-boot-starter-logging'
+    all*.exclude group: 'ch.qos.logback', module: 'logback-classic'
+    all*.exclude module: 'commons-logging'
+
+    all*.exclude module: 'HikariCP'
+    all*.exclude module: 'junit'
+  }
+
+  //  dependencies {
+  // 依赖maven中不存在的jar
+  //    compile fileTree(dir: new File(rootProject.rootDir, 'libs').getAbsolutePath(), include: '*.jar')
+  //    compile fileTree(dir: 'libs', include: '*.jar')
+
+  // add others compile ...
+  //  }
+
+  test {
+    useJUnitPlatform {
+      // includeTags 'fast'
+      excludeTags 'slow'
+
+      includeEngines 'junit-jupiter'
+    }
+    testLogging {
+      events "passed", "skipped", "failed"
+    }
+    failFast = true
+  }
+  // do others...
+}
+
+
+def getDateVersion() {
+  java.time.LocalDate today = java.time.LocalDate.now()
+  return "${today.getYear().toString().substring(3)}.${today.getMonthValue()}.${today.getDayOfMonth()}_${today.getDayOfYear()}"
+}
+
+// 添加git commit Id 信息，可以对应上 打包那条提交记录
+def getCommitId() {
+  def cmd = "git rev-parse --short HEAD"
+  return cmd.execute().text.trim()
+}

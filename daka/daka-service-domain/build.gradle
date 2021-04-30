@@ -1,0 +1,21 @@
+def deps = rootProject.ext.deps
+
+dependencies {
+
+  pmd deps.p3c
+
+  compileOnly deps.lombok
+  annotationProcessor deps.lombok
+
+  compile project(':toolkit-core')
+  compile project(':daka:toolkit-extra')
+
+  compile deps.slf4j
+  compile deps.javaxPersistenceApi
+
+  testCompileOnly deps.lombok
+  testAnnotationProcessor deps.lombok
+
+  testCompile deps.junitPlatform
+  testCompile deps.junitJupiter
+}

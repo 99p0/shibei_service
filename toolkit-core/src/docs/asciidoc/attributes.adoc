@@ -1,0 +1,19 @@
+:icons: font
+:docinfo: shared,private
+:idprefix:
+:idseparator: -
+:numbered:
+:hide-uri-scheme:
+:doctype: book
+:imagesdir: images
+:toc: left
+:toclevels: 5
+:sectanchors:
+:sectnums:
+:sectnumlevels: 5
+:source-highlighter: rouge
+:figure-caption!:
+:pdf-theme: sc
+:pdf-fontsdir: fonts
+:pdf-themesdir: themes
+:experimental:

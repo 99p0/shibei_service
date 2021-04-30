@@ -1,0 +1,20 @@
+def deps = rootProject.ext.deps
+dependencies {
+
+  pmd deps.p3c
+
+  compileOnly deps.lombok
+  annotationProcessor deps.lombok
+
+  compile deps.slf4j
+  compile deps.guava
+
+  compile deps.jacksonDatabind
+  compile deps.jacksonDatatypeJsr310
+
+  testCompileOnly deps.lombok
+  testAnnotationProcessor deps.lombok
+
+  testCompile deps.junitPlatform
+  testCompile deps.junitJupiter
+}
