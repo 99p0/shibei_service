@@ -135,10 +135,13 @@ public class UserController extends BaseController {
       out.write(b64d);
       out.flush();
       out.close();
-      boolean flag = userService.uploadMoneyQr(currUserDtlVo.getUid(),
-          BirdplanetConfig.moneyqrPathPrefix + fileNameSB);
+      String moneyQrUrl = BirdplanetConfig.moneyqrPathPrefix + fileNameSB;
+      boolean flag = userService.uploadMoneyQr(currUserDtlVo.getUid(), moneyQrUrl);
       Map<String, Object> dataMap = Maps.newHashMapWithExpectedSize(1);
       dataMap.put("flag", flag);
+      if(flag){
+        dataMap.put("moneyQrUrl", moneyQrUrl);
+      }
       return RespDto.succData(dataMap);
     } catch (IOException e) {
       log.error("上传收款码 ERR", e);

@@ -6,6 +6,8 @@
 package cn.birdplanet.util;
 
 import cn.birdplanet.toolkit.crypto.BCrypt;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +16,7 @@ public class BcryptTest {
   @Test
   public void testBcrypt() {
 
-    String originalPassword = "bp@190916";
+    String originalPassword = "10b@21430";
     System.out.println("pw: \t\t\t\t" + originalPassword);
 
     String originalPassword_sha512 = DigestUtils.sha512Hex(originalPassword);
@@ -28,5 +30,10 @@ public class BcryptTest {
 
     boolean matched = BCrypt.checkpw(originalPassword_sha512, generatedSecuredPasswordHash);
     System.out.println("Check:\t\t\t" + matched);
+
+    LocalDate date = LocalDate.of(2021, 5, 1);
+    System.out.println("date:\t\t\t" + date);
+    LocalDate end = date.plusDays(7L);
+    System.out.println("date:\t\t\t" + end);
   }
 }
