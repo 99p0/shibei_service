@@ -16,7 +16,7 @@ public class BcryptTest {
   @Test
   public void testBcrypt() {
 
-    String originalPassword = "10b@21430";
+    String originalPassword = "210511";
     System.out.println("pw: \t\t\t\t" + originalPassword);
 
     String originalPassword_sha512 = DigestUtils.sha512Hex(originalPassword);

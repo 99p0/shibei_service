@@ -56,6 +56,9 @@ public class Admin {
   @Column(name = "password")
   private String password;
 
+  @Column(name = "password_pay")
+  private String passwordPay;
+
   @Column(name = "last_login")
   @JsonSerialize(using = LocalDateTimeSerializer.class)
   @JsonDeserialize(using = LocalDateTimeDeserializer.class)

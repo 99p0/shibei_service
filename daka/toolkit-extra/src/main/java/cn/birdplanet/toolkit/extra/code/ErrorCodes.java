@@ -30,6 +30,8 @@ public enum ErrorCodes {
   token_err("-5003", "无效的请求"),
   missingServletRequestParameter("-5004", "缺失请求参数"),
   RedisConnectionFailure("-5005", "Redis服务异常"),
+  user_not_exists("-5007", "此用户不存在"),
+  pay_pwd_err("-5008", "支付密码有误"),
 
   invite_err("-5200", "邀请失败"),
   invite_code_not_exist("-5202", "邀请码不存在"),

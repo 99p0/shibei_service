@@ -66,20 +66,6 @@ public class UserController extends BaseController {
     return RespDto.succData(userInfo);
   }
 
-  @ApiOperation(value = "用户充值", notes = " ")
-  @ApiImplicitParams({
-      @ApiImplicitParam(paramType = "query", name = "uid", dataType = "int", value = "用户UID"),
-      @ApiImplicitParam(paramType = "query", name = "recharge", dataType = "int", value = "充值金额"),
-  })
-  @PostMapping("recharge")
-  public RespDto rechargeByUid(@RequestAttribute Admin currAdmin, @RequestParam long uid, @RequestParam int amount) {
-    boolean flag = userService.rechargeByUid(uid, amount);
-
-    HashMap<String, Object> dataMap = Maps.newHashMapWithExpectedSize(2);
-    dataMap.put("flag", flag);
-    // 转换数据
-    return RespDto.succData(dataMap);
-  }
   @ApiOperation(value = "上传用户收款码", notes = " ")
   @ApiImplicitParams({
       @ApiImplicitParam(paramType = "query", name = "uid", dataType = "long", value = "用户ID"),

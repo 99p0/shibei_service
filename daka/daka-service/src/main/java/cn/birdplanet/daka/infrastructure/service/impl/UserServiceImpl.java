@@ -222,7 +222,7 @@ public class UserServiceImpl extends BaseService implements IUserService {
   }
 
   @Transactional(rollbackFor = RuntimeException.class)
-  @Override public synchronized boolean rechargeByUid(long uid, int amount) {
+  @Override public synchronized boolean rechargeByUid(long uid, int amount, String payPwd) {
     //
     boolean flag = userMapper.updateBalanceAdd(uid, new BigDecimal(amount)) == 1;
     if (flag) {

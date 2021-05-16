@@ -61,5 +61,5 @@ public interface IUserService {
   String getBaseInfo_RoomRule();
   String getBaseInfo_RoomGrid();
 
-  boolean rechargeByUid(long uid, int amount);
+  boolean rechargeByUid(long uid, int amount, String payPwd);
 }
