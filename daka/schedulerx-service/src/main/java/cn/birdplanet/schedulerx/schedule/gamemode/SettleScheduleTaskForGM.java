@@ -24,11 +24,11 @@ public class SettleScheduleTaskForGM {
   @Autowired private IGameModeService gameModeService;
 
   /**
-   * 每天08:30执行 计结算任务
+   * 每天08:08:00执行 计结算任务
    * <p>
    * {秒数} {分钟} {小时} {日期} {月份} {星期} {年份(可为空)}
    */
-  @Scheduled(cron = "0 30 8 * * ?")
+  @Scheduled(cron = "0 8 8 * * ?")
   public void settleYesterdayActivity() {
     // 结算昨天的活动
     LocalDate yesterday = LocalDate.now().minusDays(1);

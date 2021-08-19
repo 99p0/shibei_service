@@ -19,11 +19,11 @@ public class StatisticsScheduleTaskForGM {
   @Autowired private IGameModeService gameModeService;
 
   /**
-   * 每月1号03:00执行 统计结算任务
+   * 每月1号03:10执行 统计结算任务
    * <p>
    * {秒数} {分钟} {小时} {日期} {月份} {星期} {年份(可为空)}
    */
-  @Scheduled(cron = "0 0 3 1 * ?")
+  @Scheduled(cron = "0 10 3 1 * ?")
   public void statisticsByMonth() {
     log.info("统计上个月份的打卡情况:: start");
     LocalDate currDate = LocalDate.now();
@@ -40,11 +40,11 @@ public class StatisticsScheduleTaskForGM {
   }
 
   /**
-   * 每月2-31的 03:10 执行：统计当前月份的打卡轮数情况
+   * 每月2-31的 07:40 执行：统计当前月份的打卡轮数情况
    * <p>
    * {秒数} {分钟} {小时} {日期} {月份} {星期} {年份(可为空)}
    */
-  @Scheduled(cron = "0 50 7 2-31 * ?")
+  @Scheduled(cron = "0 40 7 2-31 * ?")
   public void statistics() {
     log.info("统计当前月份的打卡轮数情况:: start");
     LocalDate currDate = LocalDate.now();

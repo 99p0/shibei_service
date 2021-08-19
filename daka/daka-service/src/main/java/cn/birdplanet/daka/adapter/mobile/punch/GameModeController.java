@@ -74,7 +74,7 @@ public class GameModeController extends BaseController {
       @ApiImplicitParam(paramType = "query", name = "pageNum", dataType = "int", value = "页码"),
       @ApiImplicitParam(paramType = "query", name = "pageSize", dataType = "int", value = "每页数量"),
   })
-  @RedisRateLimit(limitType = RedisRateLimitType.UID_IP_URI, period = 60, count = 30)
+  @RedisRateLimit(limitType = RedisRateLimitType.UID_IP_URI, period = 60, count = 40)
   @PostMapping("activities/available")
   public RespDto getAvailableActivities(@RequestAttribute UserDtlVO currUserDtlVo,
       @RequestParam(required = false, defaultValue = "") String type,
@@ -104,7 +104,7 @@ public class GameModeController extends BaseController {
     return RespDto.succData(dataMap);
   }
 
-  @RedisRateLimit(limitType = RedisRateLimitType.UID_IP_URI, period = 60, count = 20)
+  @RedisRateLimit(limitType = RedisRateLimitType.UID_IP_URI, period = 60, count = 40)
   @ApiOperation(value = "获取当前打卡的状态", notes = "Notes")
   @ApiImplicitParams({
       @ApiImplicitParam(paramType = "query", name = "aid", dataType = "int", value = "活动ID"),

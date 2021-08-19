@@ -30,9 +30,7 @@ public class BirdplanetConstants {
   public static final BigDecimal WITHDRAWAL_LIMIT = new BigDecimal("49.00");
 
   public static final String POSTER_URL_PREFIX = "https://www.zhuomuniaodaka.com/poster/";
-  public static final String POSTER_INVITE_PATH = "/data/birdplanet/moneyqr/poster/";
-
-  public static final String APP_DOWNLOAD_URL_QR_PATH = "/data/birdplanet/moneyqr/poster/";
+  public static final String POSTER_INVITE_PATH = "/data/birdplanet/moneyqr/shibei/";
 
   public static final String AVATAR_DEF_URL = "https://www.zhuomuniaodaka.com/shibei/default.png";
 

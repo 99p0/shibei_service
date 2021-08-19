@@ -89,7 +89,7 @@ public class PostersController extends BaseController {
     Path path = Paths.get(BirdplanetConstants.POSTER_INVITE_PATH + fileName);
     if (!Files.exists(path)) {
       // 未处理海报的路径
-      Path posterPath = Paths.get(BirdplanetConstants.POSTER_INVITE_PATH + "default.png");
+      Path posterPath = Paths.get(BirdplanetConstants.POSTER_INVITE_PATH + "default_poster.png");
       if (!Files.exists(posterPath)) {
         log.error("预设海报不存在");
       }

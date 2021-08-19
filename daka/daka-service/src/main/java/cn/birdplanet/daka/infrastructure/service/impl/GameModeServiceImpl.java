@@ -932,7 +932,7 @@ public class GameModeServiceImpl extends BaseService implements IGameModeService
         List<GameModeDTO> modeList;
         // 每天早上覆盖之前的打卡列表数据
         redisUtils.set2Day(key, activities);
-        // 常规: 即不是回血房，不是延迟， 不是一分钟，
+        // 常规:
         modeList = activities.stream()
             .filter(gameMode -> gameMode.getGird9Idx() == Gird9IdxCodes.G20.getCode())
             .collect(Collectors.toList());
